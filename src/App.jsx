@@ -11,6 +11,18 @@ import PageNotFound from './pages/PageNotFound'
 import { Navigate } from 'react-router-dom'
 import {GlobalStyles} from './styles/GlobalStyles'
 import AppLayout from './ui/AppLayout'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+
+
+
+const queryClient = new QueryClient({
+  defaultOptions:{
+    queries:{
+      staleTime:0
+    }
+  }
+})
 
 const router = createBrowserRouter([
   {element:<AppLayout />,children:[
@@ -29,8 +41,11 @@ const router = createBrowserRouter([
 export default function App() {
   return (
     <>
-      <GlobalStyles />
-        <RouterProvider router={router} />
+      <QueryClientProvider client={queryClient}>
+        <ReactQueryDevtools initialIsOpen={false} />
+        <GlobalStyles />
+          <RouterProvider router={router} />
+      </QueryClientProvider>
     </>
   )
 }
