@@ -28,7 +28,7 @@ function CreateCabinForm() {
   const {register,handleSubmit,reset,getValues,formState:{errors}} = useForm()
 
   function onSubmit(data){
-    mutate(data)
+    mutate({...data,image:data.image[0]})
   }
 
   function onError(error){
@@ -112,7 +112,10 @@ function CreateCabinForm() {
       <FormRow label="Cabin photo">
         <FileInput
           id="image"
-          accept="image/*"
+          accept="image/*" 
+          {...register('image',{
+            required:'This is required'
+          })}
         />
       </FormRow>
 
