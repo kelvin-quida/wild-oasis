@@ -13,15 +13,20 @@ export async function getCabins(){
     return data
 }
 
-export async function createCabin(newCabin){
+export async function createEditCabin(newCabin,id){
     const imageName = `${Math.random()}-${newCabin.image.name}`.replaceAll('/','')
 
     const imagePath = `${supabaseUrl}/storage/v1/object/public/cabin-images/${imageName}`
 
-    const { data, error } = await supabase
-    .from('cabins')
-    .insert([{...newCabin,image:imagePath}])
-    .select() 
+    let query = supabase.from('cabins')
+
+    if(!id)
+        query
+            .insert([{...newCabin,image:imagePath}])
+            .select() 
+            .single()
+
+    const {data,error} = await query
 
     if(error) {
         console.log(error)
