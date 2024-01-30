@@ -1,12 +1,13 @@
 import TableOperations from "../../ui/TableOperations";
 import Filter from "../../ui/Filter";
 
-export default function CabinTableOperation(){
+export default function CabinTableOperations(){
     return(
         <TableOperations>
             <Filter filterField='discount' options={[
-                {value:'All',label:'All'},
-                {value:'no-discount'}
+                {value:'all',label:'All'},
+                {value:'no-discount',label:'No Discont'},
+                {value:'with-discount',label:'With Discount'}
                 ]} 
             />
         </TableOperations>
