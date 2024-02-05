@@ -16,10 +16,17 @@ export async function getBooking(id) {
   return data;
 }
 
-export async function getBookings() {
-  const { data, error } = await supabase
+export async function getBookings({filter}) {
+  let query = supabase
     .from("bookings")
-    .select("*, cabins(name), guests(fullName,email)")
+    .select(
+      "id, created_at, startDate, endDate, numNights, numGuests, status, totalPrice, cabins(name), guests(fullName, email)"
+    );
+
+  // FILTER
+  if (filter) query = query[filter.method || "eq"](filter.field, filter.value);
+
+  const {data,error} = await query
 
   if (error) {
     console.error(error);
