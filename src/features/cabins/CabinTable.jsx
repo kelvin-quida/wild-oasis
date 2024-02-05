@@ -12,12 +12,12 @@ export default function CabinTable(){
   
   if(isLoading) return <Spinner / >
   
-  const filterValue = searchParams.get('discount')
+  const filterValue = searchParams.get('discount') || 'all'
 
   let filteredCabins
   if (cabins) {
     filteredCabins =
-      filterValue === 'all'
+      filterValue === 'all' 
         ? cabins
         : filterValue === 'with-discount'
         ? cabins.filter((cabin) => cabin.discount > 0)
