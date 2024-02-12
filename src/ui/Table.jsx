@@ -83,10 +83,13 @@ function Header({children}){
   )
 }
 
-function Row({children}){
+function Row({children, onClick}){
   const {columns} = useContext(TableContext)
+  function handleClick(){
+    onClick?.()
+  }
   return (
-    <StyledRow role="row" columns={columns}>
+    <StyledRow role="row" columns={columns} onClick={handleClick}>
       {children}
     </StyledRow>
   )
