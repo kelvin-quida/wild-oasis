@@ -26,7 +26,7 @@ function BookingDetail() {
 
   if(isLoading) return <Spinner />
   console.log(booking)
-  const {status,id: bookingId} = booking
+  const {status,id: bookingId, cabins:{name:cabinName}} = booking
 
 
   const statusToTagName = {
@@ -39,7 +39,7 @@ function BookingDetail() {
     <>
       <Row type="horizontal">
         <HeadingGroup>
-          <Heading as="h1">Booking #{bookingId}</Heading>
+          <Heading as="h1">Booking #{cabinName}</Heading>
           <Tag type={statusToTagName[status]}>{status.replace("-", " ")}</Tag>
         </HeadingGroup>
         <ButtonText onClick={moveBack}>&larr; Back</ButtonText>

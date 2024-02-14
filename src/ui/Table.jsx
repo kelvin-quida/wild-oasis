@@ -31,7 +31,7 @@ const StyledHeader = styled(CommonRow)`
 
 const StyledRow = styled(CommonRow)`
   padding: 1.2rem 2.4rem;
-
+  cursor: pointer;
   &:not(:last-child) {
     border-bottom: 1px solid var(--color-grey-100);
   }
@@ -83,13 +83,11 @@ function Header({children}){
   )
 }
 
-function Row({children, onClick}){
+function Row({children}){
   const {columns} = useContext(TableContext)
-  function handleClick(){
-    onClick?.()
-  }
+
   return (
-    <StyledRow role="row" columns={columns} onClick={handleClick}>
+    <StyledRow role="row" columns={columns}>
       {children}
     </StyledRow>
   )
