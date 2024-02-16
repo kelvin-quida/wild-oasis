@@ -29,6 +29,7 @@ const StyledHeader = styled(CommonRow)`
   color: var(--color-grey-600);
 `;
 
+
 const StyledRow = styled(CommonRow)`
   padding: 1.2rem 2.4rem;
   cursor: pointer;
