@@ -8,7 +8,7 @@ export default function useLogout(){
     const queryClient = useQueryClient()
 
     const {mutate:logout, isLoading} = useMutation({
-        mutationFn:()=>logoutApi(),
+        mutationFn: logoutApi,
         onSuccess:()=>{
             queryClient.removeQueries(),
             navigate('/login')
