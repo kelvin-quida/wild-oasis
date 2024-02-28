@@ -1,5 +1,8 @@
 import styled from "styled-components";
 import DashboardBox from "./DashboardBox";
+import Heading from "../../ui/Heading";
+import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { eachDayOfInterval, format, isSameDay, subDays } from "date-fns";
 
 const StyledSalesChart = styled(DashboardBox)`
   grid-column: 1 / -1;
@@ -57,3 +60,60 @@ const colors = isDarkMode
       text: "#374151",
       background: "#fff",
     };
+
+
+export default function SalesChart({bookings, numDays}) {
+  
+  const allDates = eachDayOfInterval({
+    start: subDays(new Date(), numDays - 1),
+    end: new Date(),
+  });
+
+  const data = allDates.map((date) => {
+    return {
+      label: format(date, "MMM dd"),
+      totalSales: bookings
+        .filter((booking) => isSameDay(date, new Date(booking.created_at)))
+        .reduce((acc, cur) => acc + cur.totalPrice, 0),
+      extrasSales: bookings
+        .filter((booking) => isSameDay(date, new Date(booking.created_at)))
+        .reduce((acc, cur) => acc + cur.extrasPrice, 0),
+    };
+  });
+
+  console.log({data})
+  
+  return (
+    <StyledSalesChart>
+      <Heading as='h2'>Sales</Heading>
+
+
+    <ResponsiveContainer height={300} width='100%'>
+      <AreaChart data={data} >
+        <XAxis dataKey='label' />
+        <YAxis unit='$' />
+        <CartesianGrid strokeDasharray="4" />
+        <Tooltip />
+        <Area 
+          dataKey='totalSales' 
+          type='monotone' 
+          stroke="green" 
+          fill="blue" 
+          strokeWidth={2}
+          name="Total sales"
+          unit='$'
+        />
+        <Area 
+          dataKey='extrasSales' 
+          type='monotone' 
+          stroke="blue" 
+          fill="green" 
+          strokeWidth={2}
+          name="Extra sales"
+          unit='$'
+        />
+      </AreaChart>
+    </ResponsiveContainer>
+    </StyledSalesChart>
+  )
+}
