@@ -5,11 +5,14 @@ import Input from "../../ui/Input";
 import FormRowVertical from "../../ui/FormRowVertical"; 
 import useLogin from "./useLogin";
 import SpinnerMini from "../../ui/SpinnerMini";
+import useLoginGoogle from "./useLogin copy";
+import {FaGoogle} from 'react-icons/fa'
 
 function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const {login,isLoging} = useLogin()
+  const {login: loginGoogle, isLoging: isLogingGoogle} = useLoginGoogle()
 
   function handleSubmit(e) {
     e.preventDefault()
@@ -21,6 +24,10 @@ function LoginForm() {
         setPassword('')
       }}
       )
+  }
+
+  function handleLoginGoogle(){
+    loginGoogle()
   }
 
   return (
@@ -50,8 +57,14 @@ function LoginForm() {
         <Button size="large" disabled={isLoging}>
           {!isLoging ? 'Login' : <SpinnerMini/>}
         </Button>
+        
+        <Button size="large" onClick={handleLoginGoogle} disabled={isLogingGoogle}>
+          Login with Google  <FaGoogle />
+        </Button>
       </FormRowVertical>
     </Form>
+
+
   );
 }
 

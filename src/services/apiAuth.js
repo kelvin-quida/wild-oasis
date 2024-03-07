@@ -35,6 +35,24 @@ export async function login({email,password}){
     
 }
 
+export async function loginGoogle(){
+    const {data,error} = await supabase.auth.signInWithOAuth({
+        provider:'google',
+        options:{
+            queryParams:{
+                prompt:'consent',
+
+            }
+        }
+    })
+
+    if(error){
+        throw new Error(error.message)
+    }
+    
+    return data
+}
+
 export async function getCurrentUser(){
     // const navigate = useNavigate()
     const {data: session} = await supabase.auth.getSession()
