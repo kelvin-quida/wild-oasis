@@ -59,7 +59,7 @@ function LoginForm() {
         </Button>
         
         <Button size="large" onClick={handleLoginGoogle} disabled={isLogingGoogle}>
-          Login with Google  <FaGoogle />
+          Login with Googlee  <FaGoogle />
         </Button>
       </FormRowVertical>
     </Form>
